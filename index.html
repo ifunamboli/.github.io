@@ -114,7 +114,7 @@ input,select,textarea{width:100%;padding:1rem 0;border:none;border-bottom:1px so
 <div id="app">
   <header class="site-header" id="site-header">
     <div class="bar">
-      <button class="logo" id="logo-btn" onclick="navigate('home')">I Funamboli</button>
+      <button class="logo" id="logo-btn" onclick="navigate('home')">${SITE_NAME}</button>
       <nav class="desktop-nav" id="desktop-nav"></nav>
       <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
@@ -142,9 +142,10 @@ function openLightbox(src){ if(!src) return; document.getElementById('lightbox-i
 function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
 /* ============ CONFIG DI DEFAULT ============ */
 let PHONE="390883011817", EMAIL="ifunamboli@libero.it", IG="funamboli", ADDR="Via Madonna degli Angeli 35, Barletta";
+let SITE_NAME="I Funamboli", RAGIONE_SOCIALE="I Funamboli", PIVA="08307620727";
 const DATA_URLS={eventi:"./dati/eventi.json",gdl:"./dati/gdl.json",libri:"./dati/libri.json",oggi:"./dati/oggi.json",immagini:"./dati/immagini.json",homepage:"./dati/homepage.json",impostazioni:"./dati/impostazioni.json",scaffali:"./dati/scaffali.json",testi:"./dati/testi.json"};
 
-let SITE_IMG={hero:"hero.jpg",chisiamo1:"interno.jpg",chisiamo2:"te.jpg",chisiamo3:"caffe.jpg",tavolo:"sala-da-te.jpg",facciata:"facciata.jpg",galleria1:"",galleria2:"",galleria3:""};
+let SITE_IMG={hero:"hero.jpg",chisiamo1:"interno.jpg",chisiamo2:"te.jpg",chisiamo3:"caffe.jpg",tavolo:"sala-da-te.jpg",facciata:"facciata.jpg",galleria1:"",galleria2:"",galleria3:"",chiusura:""};
 function siteImg(key){ return `./immagini/${SITE_IMG[key]||''}`; }
 
 const DEFAULT_ORARI=[["Lunedì","17.00 – 21.30",false],["Martedì","9.30 – 13.30 · 17.00 – 21.30",false],["Mercoledì","Riposo",true],["Giovedì","9.30 – 13.30 · 17.00 – 21.30",false],["Venerdì","9.30 – 13.30 · 17.00 – 21.30",false],["Sabato","9.30 – 13.30 · 17.00 – 21.30",false],["Domenica","9.30 – 13.30 · 17.00 – 21.30",false]];
@@ -162,7 +163,8 @@ const DEFAULT_TESTI={
   wishlistEyebrow:"La tua wishlist", wishlistTitolo:"Un libro che cerchi ma non trovi ancora?", wishlistTesto:"Scrivicelo su WhatsApp. Appena arriva in negozio, ti avvisiamo lì.",
   tavoloIntro:"Compila il modulo. Ti risponderemo su WhatsApp per confermare.",
   doveBullet1:"A pochi minuti a piedi dal centro storico e dal Castello di Barletta.", doveBullet2:"Parcheggio libero disponibile lungo le vie limitrofe.",
-  closingLine2:"I Funamboli non è un punto d'arrivo. È un posto a cui tornare, ogni volta che serve un po' di equilibrio."
+  closingLine2:"I Funamboli non è un punto d'arrivo. È un posto a cui tornare, ogni volta che serve un po' di equilibrio.",
+  privacyCustom:"", cookieCustom:""
 };
 let TESTI=Object.assign({},DEFAULT_TESTI);
 
@@ -173,7 +175,8 @@ let TERRITORI=[
   {nome:"Ombre",frase:"Quello che è difficile nominare, ma esiste.",colore:"#5A2848",bg:"#EEE0EA"},
   {nome:"Altrove",frase:"Mondi possibili. Fughe necessarie.",colore:"#283070",bg:"#E0E4F2"},
   {nome:"Forme",frase:"Linguaggio, arte, il modo in cui vediamo.",colore:"#6A3A08",bg:"#F2EAD8"},
-  {nome:"Dai margini",frase:"Voci che il centro non ascolta.",colore:"#2A4A10",bg:"#E4EED8"}
+  {nome:"Dai margini",frase:"Voci che il centro non ascolta.",colore:"#2A4A10",bg:"#E4EED8"},
+  {nome:"Albi",frase:"Storie raccontate anche per immagini.",colore:"#1F5A5A",bg:"#DCEEEE"}
 ];
 const DEFAULT_TERRITORI=JSON.parse(JSON.stringify(TERRITORI));
 
@@ -183,7 +186,7 @@ const SAMPLE={
   libri:[{id:1,titolo:"La vegetariana",autore:"Han Kang",editore:"Adelphi",territorio:"Identità e corpi",descrizione:"Un romanzo potente e poetico sulla libertà, la scelta e il corpo.",vetrina:true,copertina:"",disponibilita:"Disponibile"}],
   oggi:{frase:"In questa libreria, i libri si scelgono per ciò che fanno risuonare dentro.",fonte:"Dalla lavagna · I Funamboli",caffe:"",dolce:"",eventoStasera:"",postiGdl:""},
   homepage:{heroTag:"Barletta · Libreria & Sala da tè",heroSub:"Odore di carta e tè caldo. Un posto per restare quanto serve.",ctaLibro:"Trova il tuo libro",ctaTavolo:"Prenota un tavolo",chiSiamoTitolo:"Siamo nati da un'idea semplice.",chiSiamoTesto:"Che un libro si scelga più con il cuore che con un genere. Qui i libri vivono per territori emotivi, non per categorie. Con Maria, psicoterapeuta e co-fondatrice, abbiamo costruito uno spazio dove la lettura è anche un modo di prendersi cura di sé.",benvenuto:["Puoi entrare per guardare, per un consiglio, per sederti con un libro e un tè — qui il tempo non ha fretta.","Siamo a due passi dal centro storico, comodi da raggiungere a piedi o in bici.","Se non sai da dove iniziare, prova il quiz qui sotto — o chiedi a noi appena entri."]},
-  impostazioni:{telefono:"390883011817",email:"ifunamboli@libero.it",instagram:"funamboli",indirizzo:"Via Madonna degli Angeli 35, Barletta",orari:DEFAULT_ORARI}
+  impostazioni:{telefono:"390883011817",email:"ifunamboli@libero.it",instagram:"funamboli",indirizzo:"Via Madonna degli Angeli 35, Barletta",nomeAttivita:"I Funamboli",ragioneSociale:"I Funamboli",piva:"08307620727",orari:DEFAULT_ORARI}
 };
 const QUIZ=[
   {q:"Come stai oggi?",opts:["Ho bisogno di ispirazione","Voglio capire qualcosa di me","Cerco leggerezza","Ho bisogno di silenzio"]},
@@ -202,6 +205,7 @@ function openWA(msg){window.open(waLink(msg),"_blank");}
 function fmtDate(d){if(!d)return"";try{return new Date(d).toLocaleDateString("it-IT",{day:"numeric",month:"long"});}catch{return d;}}
 function imgSrc(f){if(!f)return null;if(f.startsWith("http")||f.startsWith("data:"))return f;return `./immagini/${f}`;}
 function esc(s){return (s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function jsAttr(s){ return String(s||"").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,"&quot;").replace(/\n/g," "); }
 function coverStyle(l,fallbackColor){ const src=imgSrc(l.copertina); return src?`background-image:url('${src}');background-color:${fallbackColor||'#ddd'}`:`background-color:${fallbackColor||'#ddd'}`; }
 
 async function fetchJson(url,fallback){
@@ -228,15 +232,21 @@ async function loadData(){
   if(state.impostazioni){
     PHONE=state.impostazioni.telefono||PHONE; EMAIL=state.impostazioni.email||EMAIL;
     IG=state.impostazioni.instagram||IG; ADDR=state.impostazioni.indirizzo||ADDR;
+    SITE_NAME=state.impostazioni.nomeAttivita||SITE_NAME; RAGIONE_SOCIALE=state.impostazioni.ragioneSociale||RAGIONE_SOCIALE; PIVA=state.impostazioni.piva||PIVA;
   }
   render();
 }
-function navigate(section){
+function navigate(section, fromHistory){
   state.section=section; state.menuOpen=false; state.selTerr=null; state.selLibro=null; render();
-  document.getElementById("scroll-area").scrollTo({top:0,behavior:"smooth"});
+  window.scrollTo({top:0,behavior:"smooth"});
   const titles={home:"I Funamboli — Barletta",scaffali:"Scaffali — I Funamboli",eventi:"Eventi — I Funamboli",gdl:"Gruppi di lettura — I Funamboli",wishlist:"Wishlist — I Funamboli",tavolo:"Prenota un tavolo — I Funamboli",dove:"Dove siamo — I Funamboli",privacy:"Privacy — I Funamboli",cookie:"Cookie — I Funamboli"};
   document.title=titles[section]||"I Funamboli";
+  if(!fromHistory){ try{ history.pushState({section}, "", "#"+section); }catch{} }
 }
+window.addEventListener("popstate", function(){
+  const s=(location.hash||"#home").slice(1);
+  navigate(s, true);
+});
 function toggleMenu(){ state.menuOpen=!state.menuOpen; render(); }
 
 function renderShell(){
@@ -256,11 +266,11 @@ function renderShell(){
   const bnItems=[["home","Home",'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>'],["scaffali","Scaffali",'<path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/>'],["eventi","Eventi",'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'],["gdl","Gruppi",'<path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>'],["tavolo","Prenota",'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'],["dove","Dove",'<path d="M12 21s7-7.5 7-12a7 7 0 10-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/>']];
   document.getElementById("bottom-nav").innerHTML=bnItems.map(([k,l,icon])=>`<button class="${state.section===k?'active':''}" onclick="navigate('${k}')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${icon}</svg><span>${l}</span></button>`).join("");
   document.getElementById("footer-content").innerHTML=`
-    <p class="serif" style="font-size:22px;color:#fff;margin-bottom:.6rem;">I Funamboli</p>
+    <p class="serif" style="font-size:22px;color:#fff;margin-bottom:.6rem;">${esc(SITE_NAME)}</p>
     <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.9;margin-bottom:1.2rem;">${esc(ADDR)}<br>Libreria emotivo-relazionale · Sala da tè · Specialty coffee</p>
     <p style="font-size:12px;color:var(--gold-light);font-style:italic;margin-bottom:2rem;">${esc(TESTI.footerTagline)}</p>
     <a href="https://instagram.com/${IG}" target="_blank" style="font-size:12px;color:var(--gold-light);letter-spacing:.1em;display:block;margin-bottom:2.5rem;">@${IG}</a>
-    <p style="font-size:10.5px;color:rgba(255,255,255,.4);line-height:2.1;">P.IVA 08307620727<br>
+    <p style="font-size:10.5px;color:rgba(255,255,255,.4);line-height:2.1;">P.IVA ${esc(PIVA)}<br>
       <button onclick="navigate('privacy')" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:10.5px;text-decoration:underline;cursor:pointer;padding:0;">Privacy policy</button> ·
       <button onclick="navigate('cookie')" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:10.5px;text-decoration:underline;cursor:pointer;padding:0;">Cookie policy</button>
     </p>`;
@@ -308,7 +318,7 @@ function renderHome(){
     const sugg=state.libri.filter(l=>l.territorio===state.quizRes).slice(0,2);
     quizHtml=`<div class="narrow" style="padding:2rem;"><div class="wire" style="--wire-pos:92%"></div>
       <div class="result-card"><p class="eyebrow" style="color:var(--gold-light)">Hai trovato il tuo equilibrio</p><p class="serif" style="font-size:36px;color:#fff;line-height:1.15;margin-bottom:.75rem;">${t.nome}</p><p style="font-size:14px;color:rgba(255,255,255,.55);font-style:italic;line-height:1.8;">${t.frase}</p></div>
-      ${sugg.map(l=>`<div style="border-top:1px solid rgba(255,255,255,.08);padding:1rem 0;display:flex;justify-content:space-between;align-items:center;gap:10px;"><div><p style="color:#fff;font-size:14px;">${esc(l.titolo)}</p><p style="color:rgba(255,255,255,.45);font-size:12px;margin-top:2px;">${esc(l.autore||'')}</p></div><button onclick="openWA('Ciao! Vorrei prenotare &quot;${esc(l.titolo)}&quot; di ${esc(l.autore||'')}.')" style="background:none;border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:.4rem 1rem;font-size:11px;color:rgba(255,255,255,.72);cursor:pointer;flex-shrink:0;">Prenota</button></div>`).join("")}
+      ${sugg.map(l=>`<div style="border-top:1px solid rgba(255,255,255,.08);padding:1rem 0;display:flex;justify-content:space-between;align-items:center;gap:10px;"><div><p style="color:#fff;font-size:14px;">${esc(l.titolo)}</p><p style="color:rgba(255,255,255,.45);font-size:12px;margin-top:2px;">${esc(l.autore||'')}</p></div><button onclick="openWA('Ciao! Vorrei prenotare &quot;${jsAttr(l.titolo)}&quot; di ${jsAttr(l.autore||'')}.')" style="background:none;border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:.4rem 1rem;font-size:11px;color:rgba(255,255,255,.72);cursor:pointer;flex-shrink:0;">Prenota</button></div>`).join("")}
       <div style="display:flex;gap:8px;margin-top:1.5rem;flex-wrap:wrap;"><button onclick="shareResult('${t.nome}')" style="flex:1;min-width:140px;background:var(--gold-light);border:none;border-radius:100px;padding:.7rem 1.2rem;font-size:12px;color:#fff;cursor:pointer;font-weight:500;">Condividi il risultato</button><button onclick="quizReset()" style="background:none;border:1px solid rgba(255,255,255,.18);border-radius:100px;padding:.7rem 1.2rem;font-size:12px;color:rgba(255,255,255,.55);cursor:pointer;">Riprova</button></div>
       <button onclick="openWA('Ciao! Il quiz mi ha detto che il mio territorio è &quot;${t.nome}&quot;. Vorrei venire a scoprirlo di persona.')" style="width:100%;margin-top:.75rem;background:none;border:none;color:var(--gold-light);font-size:13px;text-decoration:underline;cursor:pointer;padding:.5rem 0;">Vieni a scoprirlo di persona →</button>
     </div>`;
@@ -331,9 +341,9 @@ function renderHome(){
   <div id="chi-siamo" class="fade" style="padding:5rem 2rem 3rem;">
     <div class="narrow"><p class="eyebrow">Chi siamo</p><p class="serif" style="font-size:27px;line-height:1.5;margin-bottom:1.5rem;">${esc(hp.chiSiamoTitolo)}</p><p style="font-size:14px;color:var(--muted);line-height:1.9;margin-bottom:2rem;">${esc(hp.chiSiamoTesto)}</p></div>
     <div class="narrow" style="display:grid;grid-template-columns:1fr 1fr;gap:3px;border-radius:16px;overflow:hidden;">
-      <div class="photo-box" style="height:220px;grid-row:1/3;background:#3D4F38;"><div class="fallback" style="background:#3D4F38;"></div><img src="${siteImg('chisiamo1')}" alt="Interno libreria" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
-      <div class="photo-box" style="height:108px;background:#8B6A40;"><div class="fallback" style="background:#8B6A40;"></div><img src="${siteImg('chisiamo2')}" alt="Tè" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
-      <div class="photo-box" style="height:108px;background:#C8B898;"><div class="fallback" style="background:#C8B898;"></div><img src="${siteImg('chisiamo3')}" alt="Specialty coffee" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+      <div class="photo-box" style="height:220px;grid-row:1/3;background:#3D4F38;cursor:pointer;"><div class="fallback" style="background:#3D4F38;"></div><img src="${siteImg('chisiamo1')}" alt="Interno libreria" loading="lazy" decoding="async" onclick="openLightbox(this.src)" onerror="this.style.display='none'"></div>
+      <div class="photo-box" style="height:108px;background:#8B6A40;cursor:pointer;"><div class="fallback" style="background:#8B6A40;"></div><img src="${siteImg('chisiamo2')}" alt="Tè" loading="lazy" decoding="async" onclick="openLightbox(this.src)" onerror="this.style.display='none'"></div>
+      <div class="photo-box" style="height:108px;background:#C8B898;cursor:pointer;"><div class="fallback" style="background:#C8B898;"></div><img src="${siteImg('chisiamo3')}" alt="Specialty coffee" loading="lazy" decoding="async" onclick="openLightbox(this.src)" onerror="this.style.display='none'"></div>
     </div>
     <div class="narrow welcome-card"><p class="eyebrow" style="margin-bottom:1rem;">Prima volta qui?</p>${(hp.benvenuto||[]).map(b=>`<div class="welcome-row"><div class="welcome-dot"></div><p style="font-size:13.5px;line-height:1.6;">${esc(b)}</p></div>`).join("")}</div>
   </div>
@@ -345,7 +355,7 @@ function renderHome(){
   ${vetrina.length?`<div class="fade" style="padding:5rem 2rem;background:var(--bg-warm);"><div class="narrow" style="max-width:900px;">
     <p class="eyebrow">In vetrina questa settimana</p><p class="serif" style="font-size:26px;line-height:1.4;margin-bottom:2rem;">Scelti per te.</p>
     <div class="grid-vetrina">${vetrina.slice(0,3).map(l=>{ const t=TERRITORI.find(t=>t.nome===l.territorio);
-      return `<div class="vetrina-item"><div class="vetrina-cover" style="${coverStyle(l,t?t.colore:'#333')}"></div><div style="flex:1">${t?`<span class="tag-pill" style="background:${t.bg};color:${t.colore}">${t.nome}</span>`:""} ${availPill(l)}<p class="serif" style="font-size:16px;margin:6px 0 2px;">${esc(l.titolo)}</p><p style="font-size:12px;color:var(--muted);margin-bottom:8px;">${esc(l.autore||'')}</p><button onclick="openWA('Ciao! Vorrei prenotare &quot;${esc(l.titolo)}&quot; di ${esc(l.autore||'')}.')" style="background:none;border:1px solid var(--border);border-radius:100px;padding:.4rem 1rem;font-size:11px;cursor:pointer;">Prenota</button></div></div>`; }).join("")}</div>
+      return `<div class="vetrina-item"><div class="vetrina-cover" style="${coverStyle(l,t?t.colore:'#333')}"></div><div style="flex:1">${t?`<span class="tag-pill" style="background:${t.bg};color:${t.colore}">${t.nome}</span>`:""} ${availPill(l)}<p class="serif" style="font-size:16px;margin:6px 0 2px;">${esc(l.titolo)}</p><p style="font-size:12px;color:var(--muted);margin-bottom:8px;">${esc(l.autore||'')}</p><button onclick="openWA('Ciao! Vorrei prenotare &quot;${jsAttr(l.titolo)}&quot; di ${jsAttr(l.autore||'')}.')" style="background:none;border:1px solid var(--border);border-radius:100px;padding:.4rem 1rem;font-size:11px;cursor:pointer;">Prenota</button></div></div>`; }).join("")}</div>
   </div></div>`:""}
   <div style="padding:5rem 0;">
     <div class="fade narrow" style="padding:0 2rem 2.5rem;max-width:900px;"><p class="eyebrow">${esc(TESTI.scaffaliEyebrow)}</p><p class="serif" style="font-size:28px;line-height:1.4;">${esc(TESTI.scaffaliTitolo)}<br><span style="color:var(--muted);font-size:22px;">${esc(TESTI.scaffaliSotto)}</span></p></div>
@@ -383,7 +393,7 @@ function renderHome(){
   })()}
   <div class="fade photo-box" style="position:relative;height:360px;">
     <div class="fallback" style="background:linear-gradient(160deg,#2A3A28,var(--dark));"></div>
-    <img src="${siteImg('hero')}" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">
+    <img src="${SITE_IMG.chiusura?siteImg('chiusura'):siteImg('hero')}" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">
     <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,22,16,.35),rgba(26,22,16,.82));z-index:1;"></div>
     <div class="narrow" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;z-index:2;"><p class="serif" style="font-size:24px;font-style:italic;line-height:1.7;margin-bottom:1rem;color:#fff;">"${esc(state.oggi.frase)}"</p><p class="eyebrow" style="margin:0;color:rgba(255,255,255,.65);">${esc(state.oggi.fonte)}</p></div>
   </div>`;
@@ -414,7 +424,7 @@ function renderScaffali(){
       <h1 class="serif" style="font-size:28px;line-height:1.3;margin:8px 0 4px;">${esc(l.titolo)}</h1>
       <p style="font-size:15px;color:var(--muted);margin-bottom:1.5rem;">${esc(l.autore||'')}${l.editore?' — '+esc(l.editore):''}</p>
       ${l.descrizione?`<p style="font-size:15px;line-height:1.9;margin-bottom:2.5rem;">${esc(l.descrizione)}</p>`:""}
-      <div style="border-top:1px solid var(--border);padding-top:1.5rem;display:flex;flex-direction:column;gap:10px;"><button class="btn-dark" onclick="openWA('Ciao! Vorrei prenotare &quot;${esc(l.titolo)}&quot; di ${esc(l.autore||'')}. È disponibile?')">Prenota su WhatsApp</button><button class="btn-ghost" onclick="openWA('Ciao! Vorrei sapere quando arriva &quot;${esc(l.titolo)}&quot; di ${esc(l.autore||'')}.')">Avvisami quando arriva</button></div>
+      <div style="border-top:1px solid var(--border);padding-top:1.5rem;display:flex;flex-direction:column;gap:10px;"><button class="btn-dark" onclick="openWA('Ciao! Vorrei prenotare &quot;${jsAttr(l.titolo)}&quot; di ${jsAttr(l.autore||'')}. È disponibile?')">Prenota su WhatsApp</button><button class="btn-ghost" onclick="openWA('Ciao! Vorrei sapere quando arriva &quot;${jsAttr(l.titolo)}&quot; di ${jsAttr(l.autore||'')}.')">Avvisami quando arriva</button></div>
     </div>`;
   }
   if(state.selTerr){
@@ -435,9 +445,9 @@ function renderScaffali(){
   <div class="grid-terr" style="max-width:1080px;margin:0 auto;">${TERRITORI.map(t=>`<div class="territorio-tile fade in" style="background:${t.bg}" onclick="selectTerritorio('${t.nome}')"><div class="grad" style="background:linear-gradient(135deg,${t.colore}22,${t.colore}66)"></div><div class="txt"><p style="color:${t.colore}">${t.nome}</p><p style="color:${t.colore}">${t.frase}</p></div></div>`).join("")}</div>
   <div class="fade narrow" style="padding:2.5rem 1.5rem;"><button class="btn-dark" onclick="openWA('Ciao! Non so cosa cercare. Potete aiutarmi?')">Non sai da dove iniziare? Scrivici</button></div>`;
 }
-function selectTerritorio(nome){ state.selTerr=nome; render(); document.getElementById("scroll-area").scrollTo({top:0,behavior:"smooth"}); }
+function selectTerritorio(nome){ state.selTerr=nome; render(); window.scrollTo({top:0,behavior:"smooth"}); }
 function backToScaffali(){ state.selTerr=null; render(); }
-function selectLibro(id,terrNome){ state.selLibro=state.libri.find(l=>l.id==id); state.selTerr=terrNome; render(); document.getElementById("scroll-area").scrollTo({top:0,behavior:"smooth"}); }
+function selectLibro(id,terrNome){ state.selLibro=state.libri.find(l=>l.id==id); state.selTerr=terrNome; render(); window.scrollTo({top:0,behavior:"smooth"}); }
 function backToTerritorio(){ state.selLibro=null; render(); }
 
 function renderEventi(){
@@ -455,7 +465,7 @@ function renderEventi(){
         ${e.luogo?`<p style="font-size:12.5px;color:var(--muted);margin-bottom:.7rem;">${esc(e.luogo)}</p>`:""}
         ${e.descrizione?`<p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1rem;">${esc(e.descrizione)}</p>`:""}
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button onclick="openWA('Ciao! Vorrei prenotare un posto all&#39;evento &quot;${esc(e.titolo)}&quot; del ${fmtDate(e.data)}.')" style="background:var(--dark);color:#fff;border:none;border-radius:100px;padding:.6rem 1.4rem;font-size:12px;cursor:pointer;">Prenota posto</button>
+          <button onclick="openWA('Ciao! Vorrei prenotare un posto per questo evento: &quot;${jsAttr(e.titolo)}&quot; del ${fmtDate(e.data)}.')" style="background:var(--dark);color:#fff;border:none;border-radius:100px;padding:.6rem 1.4rem;font-size:12px;cursor:pointer;">Prenota posto</button>
           ${e.instagram?`<a href="${esc(e.instagram)}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);border-radius:100px;padding:.6rem 1.2rem;font-size:12px;color:var(--text);">📷 Guarda il post</a>`:""}
         </div>
       </div></div></div>`).join("")}
@@ -478,7 +488,7 @@ function renderGdl(){
       ${g.data?`<p style="font-size:13px;color:var(--gold);margin-bottom:4px;">Prossimo incontro: ${fmtDate(g.data)}${g.ora?' alle '+esc(g.ora):''}</p>`:""}
       ${g.posti!==undefined&&g.posti!==""?`<p style="margin-top:4px;">${urgente?`<span class="urgency">Ultimi posti — solo ${g.posti}!</span>`:posti===0?`<span style="font-size:13px;color:#8A2020;">Posti esauriti</span>`:`<span style="font-size:13px;color:#2A5A20;">${g.posti} posti disponibili</span>`}</p>`:""}
       ${g.descrizione?`<p style="font-size:14px;color:var(--muted);margin-top:8px;line-height:1.75;">${esc(g.descrizione)}</p>`:""}
-      <button onclick="openWA('Ciao! Vorrei iscrivermi al gruppo &quot;${esc(g.nome)}&quot;.')" style="margin-top:12px;background:var(--dark);color:#fff;border:none;border-radius:100px;padding:.6rem 1.4rem;font-size:12px;cursor:pointer;">Iscriviti via WhatsApp</button>
+      <button onclick="openWA('Ciao! Vorrei iscrivermi al gruppo &quot;${jsAttr(g.nome)}&quot;.')" style="margin-top:12px;background:var(--dark);color:#fff;border:none;border-radius:100px;padding:.6rem 1.4rem;font-size:12px;cursor:pointer;">Iscriviti via WhatsApp</button>
     </div>`;}).join("")}
     <button class="btn-ghost fade in" onclick="openWA('Ciao! Vorrei informazioni sui gruppi di lettura de I Funamboli.')" style="display:flex;align-items:center;justify-content:center;gap:8px;">${WA_ICON} Scrivici per info sui gruppi</button>
   </div>`;
@@ -522,12 +532,16 @@ function renderDove(){
   </div>`;
 }
 function renderPrivacy(){
+  if(TESTI.privacyCustom && TESTI.privacyCustom.trim()){
+    return `<div class="section-pad narrow" style="padding-bottom:2rem;"><button onclick="navigate('home')" style="background:none;border:none;color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;margin-bottom:1.5rem;">← Torna alla home</button><p class="eyebrow">Informativa privacy</p><p class="serif" style="font-size:26px;line-height:1.4;">Trattamento dei dati personali</p></div>
+    <div class="narrow" style="padding:0 1.5rem 4rem;font-size:14px;color:var(--text);line-height:1.85;">${TESTI.privacyCustom.split(/\n\s*\n/).map(p=>`<p style="margin-bottom:1.2rem;">${esc(p).replace(/\n/g,"<br>")}</p>`).join("")}</div>`;
+  }
   return `<div class="section-pad narrow" style="padding-bottom:2rem;"><button onclick="navigate('home')" style="background:none;border:none;color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;margin-bottom:1.5rem;">← Torna alla home</button><p class="eyebrow">Informativa privacy</p><p class="serif" style="font-size:26px;line-height:1.4;">Trattamento dei dati personali</p></div>
   <div class="narrow" style="padding:0 1.5rem 4rem;font-size:14px;color:var(--text);line-height:1.85;">
     <p style="margin-bottom:1.5rem;color:var(--muted);font-size:12.5px;">Informativa ai sensi degli artt. 13-14 del Regolamento UE 2016/679 (GDPR) e del D.Lgs. 196/2003 come modificato dal D.Lgs. 101/2018. Ultimo aggiornamento: luglio 2026.</p>
 
     <p style="font-weight:500;margin-bottom:.5rem;">1. Titolare del trattamento</p>
-    <p style="margin-bottom:1.5rem;">I Funamboli — P.IVA 08307620727 — sede in ${esc(ADDR)} — contatto: <a href="mailto:${EMAIL}" style="text-decoration:underline;">${EMAIL}</a>. Per qualsiasi richiesta relativa al trattamento dei tuoi dati personali puoi contattare il titolare ai recapiti indicati.</p>
+    <p style="margin-bottom:1.5rem;">${esc(RAGIONE_SOCIALE)} — P.IVA ${esc(PIVA)} — sede in ${esc(ADDR)} — contatto: <a href="mailto:${EMAIL}" style="text-decoration:underline;">${EMAIL}</a>. Per qualsiasi richiesta relativa al trattamento dei tuoi dati personali puoi contattare il titolare ai recapiti indicati.</p>
 
     <p style="font-weight:500;margin-bottom:.5rem;">2. Tipologie di dati trattati</p>
     <p style="margin-bottom:1.5rem;">Il sito, nella sua configurazione attuale, non prevede moduli di registrazione, aree riservate né raccolta automatica di dati personali dei visitatori tramite cookie tecnici propri o strumenti di misurazione. I soli dati personali oggetto di trattamento sono i dati di contatto (nome, numero di telefono, indirizzo email, contenuto della comunicazione) che l'interessato sceglie volontariamente di fornire scrivendo tramite WhatsApp, telefono o posta elettronica per richiedere informazioni, prenotare un tavolo o un posto a un evento, iscriversi a un gruppo di lettura o segnalare la disponibilità di un titolo (wishlist).</p>
@@ -567,6 +581,10 @@ function renderPrivacy(){
   </div>`;
 }
 function renderCookie(){
+  if(TESTI.cookieCustom && TESTI.cookieCustom.trim()){
+    return `<div class="section-pad narrow" style="padding-bottom:2rem;"><button onclick="navigate('home')" style="background:none;border:none;color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;margin-bottom:1.5rem;">← Torna alla home</button><p class="eyebrow">Cookie policy</p><p class="serif" style="font-size:26px;line-height:1.4;">Informativa sui cookie</p></div>
+    <div class="narrow" style="padding:0 1.5rem 4rem;font-size:14px;color:var(--text);line-height:1.85;">${TESTI.cookieCustom.split(/\n\s*\n/).map(p=>`<p style="margin-bottom:1.2rem;">${esc(p).replace(/\n/g,"<br>")}</p>`).join("")}</div>`;
+  }
   return `<div class="section-pad narrow" style="padding-bottom:2rem;"><button onclick="navigate('home')" style="background:none;border:none;color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;margin-bottom:1.5rem;">← Torna alla home</button><p class="eyebrow">Cookie policy</p><p class="serif" style="font-size:26px;line-height:1.4;">Informativa sui cookie</p></div>
   <div class="narrow" style="padding:0 1.5rem 4rem;font-size:14px;color:var(--text);line-height:1.85;">
     <p style="margin-bottom:1.5rem;color:var(--muted);font-size:12.5px;">Redatta in conformità alle Linee guida cookie e altri strumenti di tracciamento del Garante per la protezione dei dati personali (provvedimento n. 231/2021). Ultimo aggiornamento: luglio 2026.</p>
@@ -590,7 +608,11 @@ function renderCookie(){
     <p style="margin-bottom:1.5rem;">La presente cookie policy potrà essere soggetta a modifiche in caso di introduzione di nuovi strumenti che comportino l'uso di cookie non tecnici; in tal caso il sito provvederà a implementare un apposito banner di raccolta del consenso conforme alla normativa vigente. Per domande: <a href="mailto:${EMAIL}" style="text-decoration:underline;">${EMAIL}</a>.</p>
   </div>`;
 }
-loadData();
+loadData().then(function(){
+  const s=(location.hash||"").slice(1);
+  if(s && NAV_ITEMS.some(n=>n[0]===s)){ navigate(s, true); }
+  else{ try{ history.replaceState({section:"home"}, "", "#home"); }catch{} }
+});
 </script>
 </body>
 </html>
