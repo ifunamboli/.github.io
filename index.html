@@ -14,11 +14,11 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231A1610'/%3E%3Cline x1='20' y1='62' x2='80' y2='38' stroke='%23B4915F' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='64' cy='44' r='8' fill='%23B4915F'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BookStore","name":"I Funamboli","address":{"@type":"PostalAddress","streetAddress":"Via Madonna degli Angeli 35","addressLocality":"Barletta","addressRegion":"BT","addressCountry":"IT"},"telephone":"+390883011817","email":"ifunamboli@libero.it","sameAs":["https://instagram.com/funamboli"]}
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap');
 :root{--bg:#FAF8F4;--bg-warm:#F2EDE4;--dark:#1A1610;--dark-mid:#241E14;--text:#1A1610;--muted:#6E5F4C;--gold:#8A6A40;--gold-light:#B4915F;--border:rgba(26,22,16,0.08);--white:#fff;--appmax:480px;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;}
@@ -114,7 +114,7 @@ input,select,textarea{width:100%;padding:1rem 0;border:none;border-bottom:1px so
 <div id="app">
   <header class="site-header" id="site-header">
     <div class="bar">
-      <button class="logo" id="logo-btn" onclick="navigate('home')">${SITE_NAME}</button>
+      <button class="logo" id="logo-btn" onclick="navigate('home')">I Funamboli</button>
       <nav class="desktop-nav" id="desktop-nav"></nav>
       <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
@@ -143,7 +143,9 @@ function closeLightbox(){ document.getElementById('lightbox').classList.remove('
 /* ============ CONFIG DI DEFAULT ============ */
 let PHONE="390883011817", EMAIL="ifunamboli@libero.it", IG="funamboli", ADDR="Via Madonna degli Angeli 35, Barletta";
 let SITE_NAME="I Funamboli", RAGIONE_SOCIALE="I Funamboli", PIVA="08307620727";
-const DATA_URLS={eventi:"./dati/eventi.json",gdl:"./dati/gdl.json",libri:"./dati/libri.json",oggi:"./dati/oggi.json",immagini:"./dati/immagini.json",homepage:"./dati/homepage.json",impostazioni:"./dati/impostazioni.json",scaffali:"./dati/scaffali.json",testi:"./dati/testi.json"};
+let PRENOTAZIONI_ATTIVE=true, PRENOTAZIONI_MSG="Prenotazioni sospese momentaneamente — scrivici comunque, troviamo una soluzione.";
+let SHOP_ATTIVO=false;
+const DATA_URLS={eventi:"./dati/eventi.json",gdl:"./dati/gdl.json",libri:"./dati/libri.json",oggi:"./dati/oggi.json",immagini:"./dati/immagini.json",homepage:"./dati/homepage.json",impostazioni:"./dati/impostazioni.json",scaffali:"./dati/scaffali.json",testi:"./dati/testi.json",shop:"./dati/shop.json"};
 
 let SITE_IMG={hero:"hero.jpg",chisiamo1:"interno.jpg",chisiamo2:"te.jpg",chisiamo3:"caffe.jpg",tavolo:"sala-da-te.jpg",facciata:"facciata.jpg",galleria1:"",galleria2:"",galleria3:"",chiusura:""};
 function siteImg(key){ return `./immagini/${SITE_IMG[key]||''}`; }
@@ -186,19 +188,21 @@ const SAMPLE={
   libri:[{id:1,titolo:"La vegetariana",autore:"Han Kang",editore:"Adelphi",territorio:"Identità e corpi",descrizione:"Un romanzo potente e poetico sulla libertà, la scelta e il corpo.",vetrina:true,copertina:"",disponibilita:"Disponibile"}],
   oggi:{frase:"In questa libreria, i libri si scelgono per ciò che fanno risuonare dentro.",fonte:"Dalla lavagna · I Funamboli",caffe:"",dolce:"",eventoStasera:"",postiGdl:""},
   homepage:{heroTag:"Barletta · Libreria & Sala da tè",heroSub:"Odore di carta e tè caldo. Un posto per restare quanto serve.",ctaLibro:"Trova il tuo libro",ctaTavolo:"Prenota un tavolo",chiSiamoTitolo:"Siamo nati da un'idea semplice.",chiSiamoTesto:"Che un libro si scelga più con il cuore che con un genere. Qui i libri vivono per territori emotivi, non per categorie. Con Maria, psicoterapeuta e co-fondatrice, abbiamo costruito uno spazio dove la lettura è anche un modo di prendersi cura di sé.",benvenuto:["Puoi entrare per guardare, per un consiglio, per sederti con un libro e un tè — qui il tempo non ha fretta.","Siamo a due passi dal centro storico, comodi da raggiungere a piedi o in bici.","Se non sai da dove iniziare, prova il quiz qui sotto — o chiedi a noi appena entri."]},
-  impostazioni:{telefono:"390883011817",email:"ifunamboli@libero.it",instagram:"funamboli",indirizzo:"Via Madonna degli Angeli 35, Barletta",nomeAttivita:"I Funamboli",ragioneSociale:"I Funamboli",piva:"08307620727",orari:DEFAULT_ORARI}
+  impostazioni:{telefono:"390883011817",email:"ifunamboli@libero.it",instagram:"funamboli",indirizzo:"Via Madonna degli Angeli 35, Barletta",nomeAttivita:"I Funamboli",ragioneSociale:"I Funamboli",piva:"08307620727",prenotazioniAttive:true,prenotazioniMessaggio:"Prenotazioni sospese momentaneamente — scrivici comunque, troviamo una soluzione.",shopAttivo:false,orari:DEFAULT_ORARI}
 };
+const SAMPLE_SHOP=[{id:1,nome:"Tè in foglie — Sencha",categoria:"Oggettistica tè",prezzo:"12€",descrizione:"Tè verde giapponese, confezione da 100g.",immagine:""}];
 const QUIZ=[
   {q:"Come stai oggi?",opts:["Ho bisogno di ispirazione","Voglio capire qualcosa di me","Cerco leggerezza","Ho bisogno di silenzio"]},
   {q:"Il mio stato d'animo è…",opts:["Inquieto","Nostalgico","Curioso","Stanco"]},
   {q:"Preferisco storie che…",opts:["Mi fanno pensare","Mi commuovono","Mi stupiscono","Mi scuotono"]}
 ];
 const QUIZ_MAP=[["Altrove","Identità e corpi","Legami","Ombre"],["Ombre","Dai margini","Sguardi dal mondo","Forme"],["Dai margini","Legami","Altrove","Identità e corpi"]];
-const NAV_ITEMS=[["home","Home"],["scaffali","Scaffali"],["eventi","Eventi"],["gdl","Gruppi di lettura"],["wishlist","Wishlist"],["tavolo","Prenota un tavolo"],["dove","Dove siamo"]];
+const NAV_ITEMS_ALL=[["home","Home"],["scaffali","Scaffali"],["eventi","Eventi"],["gdl","Gruppi di lettura"],["shop","Negozio"],["wishlist","Wishlist"],["tavolo","Prenota un tavolo"],["dove","Dove siamo"]];
+function navItems(){ return NAV_ITEMS_ALL.filter(([k])=> (k!=="shop"||SHOP_ATTIVO) && (k!=="tavolo"||PRENOTAZIONI_ATTIVE) ); }
 const WA_ICON='<svg class="wa-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.531 5.858L.057 23.428a.5.5 0 0 0 .515.572l5.701-1.493A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.93 0-3.74-.518-5.3-1.422l-.38-.224-3.938 1.031 1.05-3.836-.247-.395A9.93 9.93 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>';
 const AVAIL_STYLE={"Disponibile":["#E0EDE4","#2A5A20"],"In arrivo":["#F5E8C0","#8A6A10"],"Esaurito":["#F5DCD8","#8A2020"]};
 
-let state={section:"home",menuOpen:false,quizStep:-1,quizAns:[],quizRes:null,selTerr:null,selLibro:null,eventi:SAMPLE.eventi,gdl:SAMPLE.gdl,libri:SAMPLE.libri,oggi:SAMPLE.oggi,homepage:SAMPLE.homepage,impostazioni:SAMPLE.impostazioni};
+let state={section:"home",menuOpen:false,quizStep:-1,quizAns:[],quizRes:null,selTerr:null,selLibro:null,eventi:SAMPLE.eventi,gdl:SAMPLE.gdl,libri:SAMPLE.libri,oggi:SAMPLE.oggi,homepage:SAMPLE.homepage,impostazioni:SAMPLE.impostazioni,shop:SAMPLE_SHOP};
 
 function waLink(msg){return `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;}
 function openWA(msg){window.open(waLink(msg),"_blank");}
@@ -212,17 +216,21 @@ async function fetchJson(url,fallback){
   try{ const r=await fetch(url); if(!r.ok)throw new Error(); return await r.json(); }catch{ return fallback; }
 }
 async function loadData(){
-  state.eventi=await fetchJson(DATA_URLS.eventi,SAMPLE.eventi);
-  state.gdl=await fetchJson(DATA_URLS.gdl,SAMPLE.gdl);
-  state.libri=await fetchJson(DATA_URLS.libri,SAMPLE.libri);
-  state.oggi=await fetchJson(DATA_URLS.oggi,SAMPLE.oggi);
-  state.homepage=await fetchJson(DATA_URLS.homepage,SAMPLE.homepage);
-  state.impostazioni=await fetchJson(DATA_URLS.impostazioni,SAMPLE.impostazioni);
-  const imgOverride=await fetchJson(DATA_URLS.immagini,null);
+  const [eventi,gdl,libri,oggi,homepage,impostazioni,shop,imgOverride,testiOverride,terrOverride]=await Promise.all([
+    fetchJson(DATA_URLS.eventi,SAMPLE.eventi),
+    fetchJson(DATA_URLS.gdl,SAMPLE.gdl),
+    fetchJson(DATA_URLS.libri,SAMPLE.libri),
+    fetchJson(DATA_URLS.oggi,SAMPLE.oggi),
+    fetchJson(DATA_URLS.homepage,SAMPLE.homepage),
+    fetchJson(DATA_URLS.impostazioni,SAMPLE.impostazioni),
+    fetchJson(DATA_URLS.shop,SAMPLE_SHOP),
+    fetchJson(DATA_URLS.immagini,null),
+    fetchJson(DATA_URLS.testi,null),
+    fetchJson(DATA_URLS.scaffali,null)
+  ]);
+  state.eventi=eventi; state.gdl=gdl; state.libri=libri; state.oggi=oggi; state.homepage=homepage; state.impostazioni=impostazioni; state.shop=shop;
   if(imgOverride) SITE_IMG=Object.assign({},SITE_IMG,imgOverride);
-  const testiOverride=await fetchJson(DATA_URLS.testi,null);
   if(testiOverride) TESTI=Object.assign({},DEFAULT_TESTI,testiOverride);
-  const terrOverride=await fetchJson(DATA_URLS.scaffali,null);
   if(Array.isArray(terrOverride)){
     TERRITORI=DEFAULT_TERRITORI.map(def=>{
       const o=terrOverride.find(x=>x.nome===def.nome);
@@ -233,7 +241,10 @@ async function loadData(){
     PHONE=state.impostazioni.telefono||PHONE; EMAIL=state.impostazioni.email||EMAIL;
     IG=state.impostazioni.instagram||IG; ADDR=state.impostazioni.indirizzo||ADDR;
     SITE_NAME=state.impostazioni.nomeAttivita||SITE_NAME; RAGIONE_SOCIALE=state.impostazioni.ragioneSociale||RAGIONE_SOCIALE; PIVA=state.impostazioni.piva||PIVA;
+    PRENOTAZIONI_ATTIVE=state.impostazioni.prenotazioniAttive!==false; PRENOTAZIONI_MSG=state.impostazioni.prenotazioniMessaggio||PRENOTAZIONI_MSG;
+    SHOP_ATTIVO=!!state.impostazioni.shopAttivo;
   }
+  document.title="I Funamboli — Barletta".replace("I Funamboli",SITE_NAME);
   render();
 }
 function navigate(section, fromHistory){
@@ -255,15 +266,18 @@ function renderShell(){
   header.style.background=state.menuOpen?"var(--dark)":isHome?"transparent":"rgba(250,248,244,.94)";
   header.style.backdropFilter=(!isHome&&!state.menuOpen)?"blur(16px)":"none";
   header.style.borderBottom=(!isHome&&!state.menuOpen)?"1px solid var(--border)":"none";
+  document.getElementById("logo-btn").textContent=SITE_NAME;
   document.getElementById("logo-btn").style.color=(state.menuOpen||isHome)?"#fff":"var(--dark)";
   document.querySelectorAll("#burger span").forEach((s,i)=>{
     s.style.background=(state.menuOpen||isHome)?"#fff":"var(--dark)";
     s.style.transform=state.menuOpen?(i===0?"rotate(45deg) translate(4px,4px)":i===2?"rotate(-45deg) translate(4px,-4px)":"scaleX(0)"):"none";
   });
   document.getElementById("menu-overlay").classList.toggle("open",state.menuOpen);
-  document.getElementById("menu-nav").innerHTML=NAV_ITEMS.map(([k,l])=>`<button class="${state.section===k?'active':''}" onclick="navigate('${k}')">${l}</button>`).join("");
-  document.getElementById("desktop-nav").innerHTML=NAV_ITEMS.map(([k,l])=>`<button style="color:${isHome?'rgba(255,255,255,.85)':'var(--text)'};border-bottom-color:${state.section===k?(isHome?'#fff':'var(--dark)'):'transparent'}" onclick="navigate('${k}')">${l}</button>`).join("");
-  const bnItems=[["home","Home",'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>'],["scaffali","Scaffali",'<path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/>'],["eventi","Eventi",'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'],["gdl","Gruppi",'<path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>'],["tavolo","Prenota",'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'],["dove","Dove",'<path d="M12 21s7-7.5 7-12a7 7 0 10-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/>']];
+  document.getElementById("menu-nav").innerHTML=navItems().map(([k,l])=>`<button class="${state.section===k?'active':''}" onclick="navigate('${k}')">${l}</button>`).join("");
+  document.getElementById("desktop-nav").innerHTML=navItems().map(([k,l])=>`<button style="color:${isHome?'rgba(255,255,255,.85)':'var(--text)'};border-bottom-color:${state.section===k?(isHome?'#fff':'var(--dark)'):'transparent'}" onclick="navigate('${k}')">${l}</button>`).join("");
+  const bnItems=[["home","Home",'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>'],["scaffali","Scaffali",'<path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/>'],["eventi","Eventi",'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'],["gdl","Gruppi",'<path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>']]
+    .concat(PRENOTAZIONI_ATTIVE?[["tavolo","Prenota",'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>']]:[])
+    .concat([["dove","Dove",'<path d="M12 21s7-7.5 7-12a7 7 0 10-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/>']]);
   document.getElementById("bottom-nav").innerHTML=bnItems.map(([k,l,icon])=>`<button class="${state.section===k?'active':''}" onclick="navigate('${k}')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${icon}</svg><span>${l}</span></button>`).join("");
   document.getElementById("footer-content").innerHTML=`
     <p class="serif" style="font-size:22px;color:#fff;margin-bottom:.6rem;">${esc(SITE_NAME)}</p>
@@ -291,6 +305,7 @@ function render(){
   else if(state.section==="wishlist") c.innerHTML=renderWishlist();
   else if(state.section==="tavolo") c.innerHTML=renderTavolo();
   else if(state.section==="dove") c.innerHTML=renderDove();
+  else if(state.section==="shop") c.innerHTML=renderShop();
   else if(state.section==="privacy") c.innerHTML=renderPrivacy();
   else if(state.section==="cookie") c.innerHTML=renderCookie();
   runFades();
@@ -331,7 +346,7 @@ function renderHome(){
       <p class="tag">${esc(hp.heroTag)}</p>
       <h1 class="serif">Libri.<br>Tè.<br>Persone.<br>Tempo.</h1>
       <p class="sub">${esc(hp.heroSub)}</p>
-      <div class="cta-row"><button class="cta-primary" onclick="navigate('scaffali')">${esc(hp.ctaLibro)}</button><button class="cta-secondary" onclick="navigate('tavolo')">${esc(hp.ctaTavolo)}</button></div>
+      <div class="cta-row"><button class="cta-primary" onclick="navigate('scaffali')">${esc(hp.ctaLibro)}</button>${PRENOTAZIONI_ATTIVE?`<button class="cta-secondary" onclick="navigate('tavolo')">${esc(hp.ctaTavolo)}</button>`:""}</div>
     </div>
     <div class="scroll-cue" onclick="document.getElementById('chi-siamo').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
@@ -374,7 +389,7 @@ function renderHome(){
     <div class="fallback" style="background:linear-gradient(135deg,#4A3A20,var(--dark));"></div>
     <img src="${siteImg('tavolo')}" alt="Sala da tè" loading="lazy" decoding="async" onerror="this.style.display='none'">
     <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,22,16,.88) 0%,rgba(26,22,16,.25) 60%);z-index:1;"></div>
-    <div class="narrow" style="position:absolute;bottom:0;left:0;right:0;padding:2rem 2rem 2.5rem;z-index:2;"><p class="eyebrow" style="color:var(--gold-light)">${esc(TESTI.salaTeEyebrow)}</p><p class="serif" style="font-size:28px;color:#fff;line-height:1.3;margin-bottom:1.5rem;">${esc(TESTI.salaTeTitle)}</p><button onclick="navigate('tavolo')" style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.32);border-radius:100px;padding:.8rem 1.6rem;font-size:13px;cursor:pointer;">${WA_ICON} Prenota un tavolo</button></div>
+    <div class="narrow" style="position:absolute;bottom:0;left:0;right:0;padding:2rem 2rem 2.5rem;z-index:2;"><p class="eyebrow" style="color:var(--gold-light)">${esc(TESTI.salaTeEyebrow)}</p><p class="serif" style="font-size:28px;color:#fff;line-height:1.3;margin-bottom:1.5rem;">${esc(TESTI.salaTeTitle)}</p>${PRENOTAZIONI_ATTIVE?`<button onclick="navigate('tavolo')" style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.32);border-radius:100px;padding:.8rem 1.6rem;font-size:13px;cursor:pointer;">${WA_ICON} Prenota un tavolo</button>`:""}</div>
   </div>
   ${(() => {
     const oggiD=new Date(); oggiD.setHours(0,0,0,0);
@@ -497,7 +512,35 @@ function renderWishlist(){
   return `<div class="section-pad narrow" style="padding-bottom:2.5rem;"><p class="eyebrow fade in">${esc(TESTI.wishlistEyebrow)}</p><p class="serif fade in" style="font-size:28px;line-height:1.4;margin-bottom:.75rem;">${esc(TESTI.wishlistTitolo)}</p><p class="fade in" style="font-size:14px;color:var(--muted);line-height:1.8;">${esc(TESTI.wishlistTesto)}</p></div>
   <div class="fade narrow" style="padding:0 1.5rem 3rem;"><button class="btn-dark" onclick="openWA('Ciao! Vorrei essere avvisato/a quando arriva questo libro: ')">${WA_ICON} Scrivici il titolo su WhatsApp</button></div>`;
 }
+function renderShop(){
+  if(!SHOP_ATTIVO) return `<div class="section-pad narrow"><p style="color:var(--muted);">Sezione non disponibile.</p></div>`;
+  const cats=[...new Set(state.shop.map(p=>p.categoria).filter(Boolean))];
+  return `<div class="section-pad narrow" style="padding-bottom:2rem;max-width:900px;">
+    <p class="eyebrow fade in">Il negozio</p>
+    <p class="serif fade in" style="font-size:30px;line-height:1.4;">Libri, oggetti, piccole cose belle.</p>
+    <p class="fade in" style="font-size:14px;color:var(--muted);margin-top:.5rem;">Scrivici per acquistare — ti mandiamo il link per pagare in un attimo.</p>
+  </div>
+  <div class="narrow grid-books" style="padding:0 1.5rem 3rem;max-width:1080px;">
+    ${state.shop.length===0?`<p style="color:var(--muted);font-size:14px;">Nessun prodotto disponibile al momento.</p>`:
+    state.shop.map(p=>`<div class="book-item fade in" style="cursor:default;">
+      <div class="book-cover" style="${imgSrc(p.immagine)?`background-image:url('${imgSrc(p.immagine)}');background-color:#8A6A40`:'background-color:#8A6A40'}"></div>
+      ${p.categoria?`<span class="tag-pill" style="background:var(--bg-warm);color:var(--gold);margin-bottom:6px;">${esc(p.categoria)}</span>`:""}
+      <p class="serif" style="font-size:17px;margin-bottom:4px;">${esc(p.nome)}</p>
+      ${p.prezzo?`<p style="font-size:14px;color:var(--gold);font-weight:500;margin-bottom:6px;">${esc(p.prezzo)}</p>`:""}
+      ${p.descrizione?`<p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:10px;">${esc(p.descrizione)}</p>`:""}
+      <button class="btn-dark" onclick="openWA('Ciao! Vorrei acquistare &quot;${jsAttr(p.nome)}&quot;${p.prezzo?` (${jsAttr(p.prezzo)})`:""}. Potete mandarmi il link per il pagamento?')">${WA_ICON} Acquista su WhatsApp</button>
+    </div>`).join("")}
+  </div>`;
+}
 function renderTavolo(){
+  if(!PRENOTAZIONI_ATTIVE){
+    return `<div class="section-pad narrow" style="padding-bottom:2.5rem;">
+      <p class="eyebrow fade in">${esc(TESTI.salaTeEyebrow)}</p>
+      <p class="serif fade in" style="font-size:28px;line-height:1.4;margin-bottom:1rem;">${esc(TESTI.salaTeTitle)}</p>
+      <p class="fade in" style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:2rem;">${esc(PRENOTAZIONI_MSG)}</p>
+      <button class="btn-dark fade in" onclick="openWA('Ciao! Vorrei venire a trovarvi.')">${WA_ICON} Scrivici su WhatsApp</button>
+    </div>`;
+  }
   const orari=["9.30","10.00","10.30","11.00","11.30","12.00","12.30","13.00","17.00","17.30","18.00","18.30","19.00","19.30","20.00","20.30","21.00"];
   return `<div class="fade in photo-box" style="position:relative;height:260px;"><div class="fallback" style="background:linear-gradient(135deg,#4A3A20,var(--dark));"></div><img src="${siteImg('tavolo')}" alt="Sala da tè" loading="lazy" decoding="async" onerror="this.style.display='none'"><div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,22,16,.2),rgba(26,22,16,.8));z-index:1;"></div><div class="narrow" style="position:absolute;bottom:0;left:0;right:0;padding:2rem 1.5rem;z-index:2;"><p class="eyebrow" style="color:var(--gold-light)">${esc(TESTI.salaTeEyebrow)}</p><p class="serif" style="font-size:28px;color:#fff;line-height:1.3;">${esc(TESTI.salaTeTitle)}</p></div></div>
   <div class="fade narrow" style="padding:2.5rem 1.5rem;">
@@ -610,7 +653,7 @@ function renderCookie(){
 }
 loadData().then(function(){
   const s=(location.hash||"").slice(1);
-  if(s && NAV_ITEMS.some(n=>n[0]===s)){ navigate(s, true); }
+  if(s && navItems().some(n=>n[0]===s)){ navigate(s, true); }
   else{ try{ history.replaceState({section:"home"}, "", "#home"); }catch{} }
 });
 </script>
